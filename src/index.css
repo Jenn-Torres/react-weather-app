@@ -1,1 +1,5 @@
-
+body {
+  background: rgb(78, 74, 74);
+  color: white;
+  font-family: arial, sans-serif;
+}
