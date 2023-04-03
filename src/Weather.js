@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./Weather.css";
+
 export default function Weather() {
+  let [city, setCity] = useState("");
+  let [weatherData, setWeatherData] = useState({});
+
+  function search() {
+    const apiKey = "a33b693cfbefd271b0ed075f9a8f65f0";
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(url).then(handleResponse);
+  }
+
+  function handleResponse(response) {
+    setWeatherData({
+      temperature: response.data.main.temp,
+      humidity: response.data.main.humidity,
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
+      wind: response.data.wind.speed,
+      city: response.data.name,
+    });
+  }
+
+  function updateCity(event) {
+    setCity(event.target.value);
+  }
+
   return (
     <div className="Weather">
-      <form>
+      <form onSubmit={search}>
         <div class="row">
           <div class="col-9">
             <input
               type="search"
               placeholder="Enter a city.."
               class="form-control"
+              onChange={updateCity}
             />
           </div>
           <div class="col-3">
@@ -23,10 +50,9 @@ export default function Weather() {
           </div>
         </div>
       </form>
-      <h1>New York</h1>
+      <h1 className="text-capitalize">{weatherData.city}</h1>
       <ul>
-        <li> Friday 11:00</li>
-        <li>Mostly Cloudy</li>
+        <li>{weatherData.description}</li>
       </ul>
       <div className="row mt-4">
         <div className="col-6">
@@ -37,15 +63,16 @@ export default function Weather() {
               className="float-left"
             />
 
-            <span className="temperature">10</span>
+            <span className="temperature">
+              {Math.round(weatherData.temperature)}
+            </span>
             <span className="unit">°C</span>
           </div>
         </div>
         <div className="col-6">
           <ul>
-            <li>Precipitation: 89%</li>
-            <li>Humidity: 77%</li>
-            <li>Wind: 8 km/h</li>
+            <li>Humidity: {weatherData.humidity}%</li>
+            <li>Wind: {Math.round(weatherData.wind)} Km/h</li>
           </ul>
         </div>
       </div>
