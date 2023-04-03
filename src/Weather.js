@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Weather.css";
 
 export default function Weather() {
-  let [city, setCity] = useState("London");
+  let [city, setCity] = useState("");
   let [weatherData, setWeatherData] = useState({});
 
   function search(event) {
