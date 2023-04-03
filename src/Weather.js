@@ -3,10 +3,11 @@ import axios from "axios";
 import "./Weather.css";
 
 export default function Weather() {
-  let [city, setCity] = useState("");
+  let [city, setCity] = useState("London");
   let [weatherData, setWeatherData] = useState({});
 
-  function search() {
+  function search(event) {
+    event.preventDefault();
     const apiKey = "a33b693cfbefd271b0ed075f9a8f65f0";
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(url).then(handleResponse);
