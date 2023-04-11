@@ -15,6 +15,15 @@ body {
   font-size: 56px;
   font-weight: 400;
   line-height: 1;
+  margin-left: 10px;
+}
+.Weather .unit {
+  font-size: 22px;
+  font-weight: 400;
+  margin-left: 5px;
+  position: relative;
+  top: -26px;
+  opacity: 0.8;
 }
 .Weather h1 {
   color: #dadde1;
@@ -32,19 +41,4 @@ body {
 .Weather ul {
   margin: 0;
   padding: 0;
-}
-.Weather img {
-  height: 64px;
-  width: 64px;
-  margin-right: 6px;
-  display: inline-block;
-}
-
-.Weather .unit {
-  font-size: 16px;
-  font-weight: 400;
-  margin-left: 5px;
-  position: relative;
-  top: -32px;
-  opacity: 0.8;
 }

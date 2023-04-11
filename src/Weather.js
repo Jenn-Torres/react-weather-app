@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 import FormattedDate from "./FormattedDate";
+import WeatherForecast from "./WeatherForecast";
 import axios from "axios";
 import "./Weather.css";
 import WeatherTemperature from "./WeatherTemperature";
+import WeatherIcon from "./WeatherIcon";
 
 export default function Weather(props) {
   let [city, setCity] = useState(props.defaultCity);
   let [weatherData, setWeatherData] = useState({ ready: false });
 
   function search() {
-    console.log("city");
     const apiKey = "a33b693cfbefd271b0ed075f9a8f65f0";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
   }
 
   function handleResponse(response) {
+    console.log(response.data);
     setWeatherData({
       ready: true,
       temperature: response.data.main.temp,
       date: new Date(response.data.dt * 1000),
       humidity: response.data.main.humidity,
       description: response.data.weather[0].description,
-      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+      icon: response.data.weather[0].icon,
       wind: response.data.wind.speed,
       city: response.data.name,
     });
@@ -71,11 +73,10 @@ export default function Weather(props) {
         <div className="row mt-4">
           <div className="col-6">
             <div className="d-flex">
-              <img
-                src={weatherData.iconUrl}
-                alt="Mostly Cloudy"
-                className="float-left"
-              />
+              <div className="float-left">
+                <WeatherIcon code={weatherData.icon} size={56} />
+              </div>
+
               <WeatherTemperature celsius={weatherData.temperature} />
             </div>
           </div>
@@ -86,6 +87,7 @@ export default function Weather(props) {
             </ul>
           </div>
         </div>
+        <WeatherForecast />
       </div>
     );
   } else {
