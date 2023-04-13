@@ -9,7 +9,11 @@ export default function App() {
         <Weather defaultCity="London" />
         <footer>
           This project was coded by{" "}
-          <a href="https://www.shecodes.io/graduates/57892-jennifer-torres">
+          <a
+            href="https://www.shecodes.io/graduates/57892-jennifer-torres"
+            target="_blank"
+            rel="noreferrer"
+          >
             Jennifer Torres{" "}
           </a>{" "}
           and is open sourced on{" "}
